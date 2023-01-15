@@ -1,0 +1,23 @@
+{
+  "name": "@devices/ui",
+  "version": "0.0.0",
+  "description": "ui components to be used between apps",
+  "author": "jeancatarina <jcc_ptb@hotmail.com>",
+  "homepage": "https://github.com/jeancatarina/devices-clientapp#readme",
+  "license": "ISC",
+  "engines": {
+    "npm": "please-use-yarn",
+    "yarn": ">= 1.19.1"
+  },
+  "main": "./index.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeancatarina/devices-clientapp.git"
+  },
+  "scripts": {
+    "test": "node ./__tests__/ui.test.js"
+  },
+  "bugs": {
+    "url": "https://github.com/jeancatarina/devices-clientapp/issues"
+  }
+}

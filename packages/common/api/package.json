@@ -1,0 +1,11 @@
+{
+  "name": "@devices/api",
+  "version": "1.0.0",
+  "description": "Devices API",
+  "main": "index.js",
+  "dependencies": {
+    "@devices/eslint": "*",
+    "@devices/types": "*",
+    "axios": "^1.2.2"
+  }
+}

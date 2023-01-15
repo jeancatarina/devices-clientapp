@@ -1,0 +1,30 @@
+{
+  "name": "@devices/cypress",
+  "version": "0.0.0",
+  "description": "cypress package",
+  "author": "jeancatarina <jcc_ptb@hotmail.com>",
+  "homepage": "https://github.com/jeancatarina/devices-clientapp#readme",
+  "license": "ISC",
+  "engines": {
+    "npm": "please-use-yarn",
+    "yarn": ">= 1.19.1"
+  },
+  "main": "./cypress.json",
+  "files": [
+    "cypress.json"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeancatarina/devices-clientapp.git"
+  },
+  "scripts": {
+    "cy:open": "cypress open",
+    "cy:run": "cypress run --browser chrome"
+  },
+  "bugs": {
+    "url": "https://github.com/jeancatarina/devices-clientapp/issues"
+  },
+  "devDependencies": {
+    "cypress": "^11.0.1"
+  }
+}

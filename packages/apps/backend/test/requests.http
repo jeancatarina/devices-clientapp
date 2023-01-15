@@ -1,0 +1,28 @@
+### GET devices
+GET http://localhost:3000/devices
+
+### POST device
+POST http://localhost:3000/devices
+Content-Type: application/json
+
+{
+  "system_name": "my-mac",
+  "type": "MAC",
+  "hdd_capacity": "64"
+}
+
+### GET device
+GET http://localhost:3000/devices/e7ocoQ2n3
+
+### PUT device
+PUT http://localhost:3000/devices/e7ocoQ2n3
+Content-Type: application/json
+
+{
+  "system_name": "my-win-server",
+  "type": "WINDOWS_SERVER",
+  "hdd_capacity": "500"
+}
+
+### DELETE device
+DELETE http://localhost:3000/devices/e8okoP2l5

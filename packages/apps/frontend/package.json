@@ -1,0 +1,64 @@
+{
+  "name": "@devices/frontend",
+  "version": "0.1.0",
+  "private": true,
+  "author": "jeancatarina <jcc_ptb@hotmail.com>",
+  "homepage": "https://github.com/jeancatarina/devices-clientapp#readme",
+  "license": "ISC",
+  "engines": {
+    "npm": "please-use-yarn",
+    "yarn": ">= 1.19.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeancatarina/devices-clientapp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jeancatarina/devices-clientapp/issues"
+  },
+  "scripts": {
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
+    "eject": "craco eject",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx src/ --fix"
+  },
+  "dependencies": {
+    "@craco/craco": "^7.0.0",
+    "@devices/api": "*",
+    "@devices/eslint": "*",
+    "@reduxjs/toolkit": "^1.9.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-redux": "^8.0.5",
+    "react-scripts": "5.0.1",
+    "web-vitals": "^2.1.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^13.0.0",
+    "@testing-library/user-event": "^13.2.1",
+    "@types/jest": "^27.0.1",
+    "@types/node": "^16.7.13",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
