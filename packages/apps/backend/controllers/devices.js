@@ -1,4 +1,5 @@
 import shortid from 'shortid'
+
 import devices from '../devices.json'
 
 export function getDevices(req, res) {

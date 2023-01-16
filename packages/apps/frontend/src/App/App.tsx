@@ -1,21 +1,9 @@
-import { useEffect } from 'react'
-
-import { getDevices } from '@devices/api/modules/devices/getDevices'
+import { Dashboard } from './pages/Dashboard'
 
 export const App = () => {
-  const loadData = async () => {
-    const data = await getDevices()
-
-    console.log(data)
-  }
-
-  useEffect(() => {
-    loadData()
-  }, [])
-
   return (
-    <div className="App">
-      <header className="App-header">Learn React</header>
+    <div>
+      <Dashboard />
     </div>
   )
 }

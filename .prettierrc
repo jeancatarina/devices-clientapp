@@ -2,5 +2,8 @@
   "semi": false,
   "trailingComma": "none",
   "singleQuote": true,
-  "printWidth": 80
+  "printWidth": 80,
+  "importOrder": ["^@devices/(.*)$", "<THIRD_PARTY_MODULES>", "^[./]"],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
 }

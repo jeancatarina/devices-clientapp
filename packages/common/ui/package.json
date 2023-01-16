@@ -14,10 +14,15 @@
     "type": "git",
     "url": "git+https://github.com/jeancatarina/devices-clientapp.git"
   },
-  "scripts": {
-    "test": "node ./__tests__/ui.test.js"
-  },
   "bugs": {
     "url": "https://github.com/jeancatarina/devices-clientapp/issues"
+  },
+  "dependencies": {
+    "@chakra-ui/react": "^2.4.8",
+    "@devices/eslint": "*",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "formik": "^2.2.9",
+    "framer-motion": "^8.4.3"
   }
 }

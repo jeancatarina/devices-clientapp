@@ -1,5 +1,4 @@
-import { Action, configureStore, Store, ThunkDispatch } from '@reduxjs/toolkit'
-
+import { Action, Store, ThunkDispatch, configureStore } from '@reduxjs/toolkit'
 import { useDispatch } from 'react-redux'
 
 import { devicesSlice } from './modules/devices/devicesSlice'

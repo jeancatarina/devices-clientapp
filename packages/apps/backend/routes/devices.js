@@ -1,9 +1,9 @@
 import {
-  getDevices,
   addDevice,
+  deleteDevice,
   getDevice,
-  updateDevice,
-  deleteDevice
+  getDevices,
+  updateDevice
 } from '../controllers/devices'
 
 module.exports = (app) => {

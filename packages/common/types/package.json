@@ -10,12 +10,12 @@
     "yarn": ">= 1.19.1"
   },
   "main": "index.ts",
+  "dependencies": {
+    "@devices/eslint": "*"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jeancatarina/devices-clientapp.git"
-  },
-  "scripts": {
-    "test": "node ./__tests__/types.test.js"
   },
   "bugs": {
     "url": "https://github.com/jeancatarina/devices-clientapp/issues"
