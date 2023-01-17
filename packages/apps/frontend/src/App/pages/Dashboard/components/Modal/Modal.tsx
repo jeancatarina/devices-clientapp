@@ -14,8 +14,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  Select,
-  Text
+  Select
 } from '@devices/ui'
 
 import { useAppThunkDispatch } from 'App/store'

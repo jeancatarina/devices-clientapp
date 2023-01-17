@@ -10,7 +10,13 @@
     "target": "es6",
     "sourceMap": true,
     "lib": ["es6"],
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "plugins": [
+      {
+        "name": "typescript-styled-plugin",
+        "tags": ["styled", "css", "sty", "EmotionStyled"]
+      }
+    ]
   },
   "include": ["**/*.ts", "**/*.tsx"],
   "exclude": ["dist/*", "node_modules/*", "**/*.spec.ts"]

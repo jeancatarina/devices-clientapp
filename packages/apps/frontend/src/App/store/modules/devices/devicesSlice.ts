@@ -1,4 +1,5 @@
 import { Devices } from '@devices/types'
+import { lodash } from '@devices/utils'
 
 import { createSlice } from '@reduxjs/toolkit'
 
@@ -25,7 +26,18 @@ const initialState = {
 const devices = createSlice({
   name: 'devices',
   initialState,
-  reducers: {},
+  reducers: {
+    sortBy: (state, action: Record<any, any>) => {
+      state.devices = lodash.sortBy(state.devices, action.payload)
+    },
+    filterByType: (state, action: Record<any, any>) => {
+      //   state.devices = action.payload.map((type) =>
+      //     state.devices.filter((device) => device.type === type.value)
+      //   )
+
+      state.devices = action.payload
+    }
+  },
   extraReducers: (builder) => {
     builder
       // GET ALL
@@ -110,5 +122,7 @@ const devices = createSlice({
       })
   }
 })
+
+export const { sortBy, filterByType } = devices.actions
 
 export const devicesSlice = devices.reducer

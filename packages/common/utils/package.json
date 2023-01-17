@@ -1,7 +1,7 @@
 {
-  "name": "@devices/ui",
+  "name": "@devices/utils",
   "version": "0.0.0",
-  "description": "ui components to be used between apps",
+  "description": "common utils between apps",
   "author": "jeancatarina <jcc_ptb@hotmail.com>",
   "homepage": "https://github.com/jeancatarina/devices-clientapp#readme",
   "license": "ISC",
@@ -9,21 +9,16 @@
     "npm": "please-use-yarn",
     "yarn": ">= 1.19.1"
   },
-  "main": "./index.ts",
+  "main": "index.ts",
+  "dependencies": {
+    "@devices/eslint": "*",
+    "lodash-es": "^4.17.21"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jeancatarina/devices-clientapp.git"
   },
   "bugs": {
     "url": "https://github.com/jeancatarina/devices-clientapp/issues"
-  },
-  "dependencies": {
-    "@chakra-ui/react": "^2.4.8",
-    "@devices/eslint": "*",
-    "@emotion/react": "^11.10.5",
-    "@emotion/styled": "^11.10.5",
-    "formik": "^2.2.9",
-    "framer-motion": "^8.4.3",
-    "react-select": "^5.7.0"
   }
 }
