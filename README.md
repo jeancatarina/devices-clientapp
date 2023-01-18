@@ -1,5 +1,7 @@
 # Device Manager
 
+![alt text](https://github.com/jeancatarina/devices-clientapp/blob/main/assets/images/responsive.gif?raw=true)
+
 This project is a client web application built with ReactJS, TypeScript, Lerna, and a monorepo structure, to manage devices. The devices have the following properties:
 
 - Id
@@ -37,6 +39,8 @@ The project is organized into several different packages, including:
 - `types`: Contains shared TypeScript types
 - `api`: Contains shared functions that interact with the backend server
 
+![alt text](https://github.com/jeancatarina/devices-clientapp/blob/main/assets/images/folders.png?raw=true)
+
 ## Features
 - The main view is a dashboard where users can see all devices listed.
 - User can filter devices by one Type. For example, if the user selects “Windows Server” from Device Type filter, the only device displayed will be the third one.
@@ -54,6 +58,10 @@ The project is organized into several different packages, including:
 ## Running the project
 
 To run the project, navigate to the root of the project and run `yarn install` and `yarn start`. This will start both the frontend and backend servers.
+
+the default port is: `http://localhost:3005/`
+
+![alt text](https://github.com/jeancatarina/devices-clientapp/blob/main/assets/images/readmestart.png?raw=true)
 
 To run the tests, run `yarn test`.
 
