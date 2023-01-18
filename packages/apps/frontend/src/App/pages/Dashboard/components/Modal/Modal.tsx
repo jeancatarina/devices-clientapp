@@ -17,22 +17,38 @@ import {
   Select
 } from '@devices/ui'
 
-import { useAppThunkDispatch } from 'App/store'
-import { postDeviceAsync } from 'App/store/modules/devices/devicesThunk'
+import { RootState, useAppThunkDispatch } from 'App/store'
+import {
+  postDeviceAsync,
+  putDeviceAsync
+} from 'App/store/modules/devices/devicesThunk'
+import { useSelector } from 'react-redux'
 
-import { iModal } from './iModal'
+import { IModal } from './IModal'
 
-export const Modal: React.FC<iModal> = ({ isModalOpen, onCloseModal }) => {
+export const Modal: React.FC<IModal> = ({ isModalOpen, onCloseModal }) => {
   const dispatch = useAppThunkDispatch()
+  const devices = useSelector((state: RootState) => state.devices)
 
   const handleSave = (val) => {
-    dispatch(
-      postDeviceAsync({
-        system_name: val.systemName,
-        type: val.type,
-        hdd_capacity: val.hddCapacity
-      })
-    )
+    if (devices.currentDevice) {
+      dispatch(
+        putDeviceAsync({
+          id: devices.currentDevice.id,
+          system_name: val.systemName,
+          type: val.type,
+          hdd_capacity: val.hddCapacity
+        })
+      )
+    } else {
+      dispatch(
+        postDeviceAsync({
+          system_name: val.systemName,
+          type: val.type,
+          hdd_capacity: val.hddCapacity
+        })
+      )
+    }
     onCloseModal()
   }
 
@@ -54,9 +70,9 @@ export const Modal: React.FC<iModal> = ({ isModalOpen, onCloseModal }) => {
         <FormControl isRequired>
           <FormLabel mb="8px">Type</FormLabel>
           <Select {...field} placeholder="Select Type">
-            <option value={'Windows Workstation'}>Windows Workstation</option>
-            <option value={'Windows Server'}>Windows Server</option>
-            <option value={'Mac'}>Mac</option>
+            <option value={'WINDOWS_WORKSTATION'}>Windows Workstation</option>
+            <option value={'WINDOWS_SERVER'}>Windows Server</option>
+            <option value={'MAC'}>Mac</option>
           </Select>
           <FormErrorMessage>{form.errors.name}</FormErrorMessage>
         </FormControl>
@@ -94,7 +110,11 @@ export const Modal: React.FC<iModal> = ({ isModalOpen, onCloseModal }) => {
         <ModalCloseButton />
 
         <Formik
-          initialValues={{ systemName: '', type: '', hddCapacity: '' }}
+          initialValues={{
+            systemName: devices.currentDevice?.system_name,
+            type: devices.currentDevice?.type,
+            hddCapacity: devices.currentDevice?.hdd_capacity
+          }}
           onSubmit={(values, actions) => {
             handleSave(values)
             actions.setSubmitting(false)
@@ -111,7 +131,7 @@ export const Modal: React.FC<iModal> = ({ isModalOpen, onCloseModal }) => {
                   mr={3}
                   type="submit"
                 >
-                  Salvar
+                  Save
                 </Button>
                 <Button variant="ghost" onClick={onCloseModal}>
                   close

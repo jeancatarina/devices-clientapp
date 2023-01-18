@@ -53,7 +53,7 @@ The project is organized into several different packages, including:
 
 ## Running the project
 
-To run the project, navigate to the root of the project and run `yarn start`. This will start both the frontend and backend servers.
+To run the project, navigate to the root of the project and run `yarn install` and `yarn start`. This will start both the frontend and backend servers.
 
 To run the tests, run `yarn test`.
 

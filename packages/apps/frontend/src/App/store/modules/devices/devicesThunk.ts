@@ -4,6 +4,7 @@ import { getOneDevice } from '@devices/api/modules/devices/getOneDevice'
 import { postDevice } from '@devices/api/modules/devices/postDevice'
 import { putDevice } from '@devices/api/modules/devices/putDevice'
 import { Device, Devices } from '@devices/types'
+import { convertStringToNumbers } from '@devices/utils'
 
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
@@ -17,7 +18,7 @@ const fnGetDevices = async (): Promise<Devices | unknown> => {
   try {
     const response = await getDevices()
 
-    return response.data
+    return convertStringToNumbers(response.data)
   } catch (error) {
     console.error(error)
   }

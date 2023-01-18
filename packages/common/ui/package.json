@@ -18,6 +18,7 @@
     "url": "https://github.com/jeancatarina/devices-clientapp/issues"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^2.0.16",
     "@chakra-ui/react": "^2.4.8",
     "@devices/eslint": "*",
     "@emotion/react": "^11.10.5",

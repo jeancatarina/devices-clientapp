@@ -12,18 +12,27 @@ import {
   SkeletonText,
   Text
 } from '@devices/ui'
+import { FramerMotion, IconList } from '@devices/ui'
 
 import { RootState, useAppThunkDispatch } from 'App/store'
+import { setCurrentDevice } from 'App/store/modules/devices/devicesSlice'
 import { deleteDeviceAsync } from 'App/store/modules/devices/devicesThunk'
 import { FC } from 'react'
 import { useSelector } from 'react-redux'
 
-export const List: FC = () => {
+import { IList } from './IList'
+
+export const List: FC<IList> = ({ showList, setIsModalOpen }) => {
   const dispatch = useAppThunkDispatch()
   const devices = useSelector((state: RootState) => state.devices)
 
   const handleDelete = (id: string) => {
     dispatch(deleteDeviceAsync(id))
+  }
+
+  const openDrawer = (device: Device) => {
+    dispatch(setCurrentDevice(device))
+    setIsModalOpen(true)
   }
 
   const getLoading = () => {
@@ -45,32 +54,67 @@ export const List: FC = () => {
         </CardBody>
         <CardFooter>
           <ButtonGroup spacing="2">
-            <Button>Update</Button>
-            <Button onClick={() => handleDelete(device.id)}>Delete</Button>
+            <Button
+              onClick={() => openDrawer(device)}
+              leftIcon={<IconList.EditIcon />}
+            >
+              Update
+            </Button>
+            <Button
+              leftIcon={<IconList.DeleteIcon />}
+              onClick={() => handleDelete(device.id)}
+            >
+              Delete
+            </Button>
           </ButtonGroup>
         </CardFooter>
       </>
     )
   }
 
+  const getEmptyState = () => {
+    return (
+      <Box padding="6" boxShadow="lg" bg="white">
+        <Text size="md">No devices found, please add one.</Text>
+      </Box>
+    )
+  }
+
   const getDevicesList = () => {
-    const cards = devices.devices.map((device: Device) => {
+    const cards = devices.filteredDevices.map((device: Device) => {
       return (
-        <Card key={device.id}>
-          {devices.status === 'loading' ? getLoading() : getCardBody(device)}
-        </Card>
+        <FramerMotion.motion.div
+          key={device.id}
+          layout
+          initial={{ transform: 'scale(0)' }}
+          animate={{ transform: 'scale(1)' }}
+          exit={{ transform: 'scale(0)' }}
+        >
+          <Card key={device.id}>
+            {devices.status === 'loading' ? getLoading() : getCardBody(device)}
+          </Card>
+        </FramerMotion.motion.div>
       )
     })
 
+    if (cards.length === 0 && devices.status === 'idle') {
+      return getEmptyState()
+    }
+
     return (
       <SimpleGrid
-        spacing={4}
-        templateColumns="repeat(auto-fill, minmax(200px, 4fr))"
+        spacing={showList ? '4px' : '40px'}
+        columns={showList ? 1 : undefined}
+        minChildWidth={showList ? undefined : '250px'}
       >
         {cards}
       </SimpleGrid>
     )
   }
 
-  return getDevicesList()
+  return (
+    <FramerMotion.AnimatePresence>
+      {getDevicesList()}
+    </FramerMotion.AnimatePresence>
+  )
 }

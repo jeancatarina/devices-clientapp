@@ -1,18 +1,25 @@
-import { Button, ButtonGroup, ReactSelect } from '@devices/ui'
+import { Button, ButtonGroup, IconList, ReactSelect, Stack } from '@devices/ui'
 
 import { RootState, useAppThunkDispatch } from 'App/store'
-import { filterByType, sortBy } from 'App/store/modules/devices/devicesSlice'
+import {
+  cleanFilter,
+  filterByType,
+  sortBy
+} from 'App/store/modules/devices/devicesSlice'
 import { useSelector } from 'react-redux'
 
-import { getDevicesAsync } from '../../../../store/modules/devices/devicesThunk'
 import {
   AddButtonContainerStyled,
   ContainerStyled,
   FilterContainerStyled
 } from './Filter.styles'
-import { iFilter } from './iFilter'
+import { IFilter } from './IFilter'
 
-export const Filter: React.FC<iFilter> = ({ handleAdd }) => {
+export const Filter: React.FC<IFilter> = ({
+  handleAdd,
+  setShowList,
+  showList
+}) => {
   const dispatch = useAppThunkDispatch()
   const devices = useSelector((state: RootState) => state.devices)
 
@@ -25,13 +32,25 @@ export const Filter: React.FC<iFilter> = ({ handleAdd }) => {
   }
 
   const handleOnChangeType = async (value) => {
-    const filtered = value
-      .map((type) =>
-        devices.devices.filter((device) => device.type === type.value)
-      )
-      .pop()
+    // const filtered = value
+    //  .map((type) =>
+    //    devices.devices.filter((device) => device.type === type.value)
+    //  )
+    //  .pop()
 
-    await dispatch(filterByType(filtered))
+    // dispatch(getDevicesAsync())
+
+    const filtered = devices.devices.filter((device) =>
+      value.some(
+        (item) => item.value.toLowerCase() === device.type.toLowerCase()
+      )
+    )
+
+    if (value.length > 0) {
+      dispatch(filterByType(filtered))
+    } else {
+      dispatch(cleanFilter())
+    }
 
     // if (devices.devices.length === 0) {
     //   dispatch(getDevicesAsync())
@@ -46,9 +65,9 @@ export const Filter: React.FC<iFilter> = ({ handleAdd }) => {
         placeholder="Select Device Type"
         onChange={handleOnChangeType}
         options={[
-          { value: 'Windows Workstation', label: 'Windows Workstation' },
-          { value: 'Windows Server', label: 'Windows Server' },
-          { value: 'Mac', label: 'Mac' }
+          { value: 'WINDOWS_WORKSTATION', label: 'Windows Workstation' },
+          { value: 'WINDOWS_SERVER', label: 'Windows Server' },
+          { value: 'MAC', label: 'Mac' }
         ]}
       ></ReactSelect.default>
     )
@@ -71,13 +90,39 @@ export const Filter: React.FC<iFilter> = ({ handleAdd }) => {
     )
   }
 
+  const getDynamicLayoutButtons = () => {
+    return (
+      <Stack direction="row" spacing={4}>
+        <Button
+          leftIcon={<IconList.DragHandleIcon />}
+          colorScheme="teal"
+          variant={showList ? 'outline' : 'solid'}
+          onClick={() => setShowList(false)}
+        >
+          Cards
+        </Button>
+        <Button
+          leftIcon={<IconList.HamburgerIcon />}
+          colorScheme="teal"
+          variant={showList ? 'solid' : 'outline'}
+          onClick={() => setShowList(true)}
+        >
+          List
+        </Button>
+      </Stack>
+    )
+  }
+
   return (
     <ContainerStyled>
       <FilterContainerStyled>
         {getTypeFilter()}
         {getSortByFilter()}
       </FilterContainerStyled>
-      <AddButtonContainerStyled>{getAddButton()}</AddButtonContainerStyled>
+      <AddButtonContainerStyled>
+        {getDynamicLayoutButtons()}
+        {getAddButton()}
+      </AddButtonContainerStyled>
     </ContainerStyled>
   )
 }

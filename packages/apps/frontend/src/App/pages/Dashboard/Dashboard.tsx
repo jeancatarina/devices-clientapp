@@ -1,5 +1,6 @@
 import { Container } from '@devices/ui'
 
+import { setCurrentDevice } from 'App/store/modules/devices/devicesSlice'
 import { getDevicesAsync } from 'App/store/modules/devices/devicesThunk'
 import { useEffect, useState } from 'react'
 
@@ -11,6 +12,7 @@ import { Modal } from './components/Modal'
 export const Dashboard = () => {
   const dispatch = useAppThunkDispatch()
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [showList, setShowList] = useState(false)
 
   useEffect(() => {
     dispatch(getDevicesAsync())
@@ -20,12 +22,23 @@ export const Dashboard = () => {
     setIsModalOpen(true)
   }
 
-  const onCloseModal = () => setIsModalOpen(false)
+  const onCloseModal = () => {
+    dispatch(setCurrentDevice(null))
+    setIsModalOpen(false)
+  }
 
   return (
-    <Container>
-      <Filter handleAdd={handleAdd} />
-      <List />
+    <Container maxW={'90ch'}>
+      <Filter
+        handleAdd={handleAdd}
+        showList={showList}
+        setShowList={setShowList}
+      />
+      <List
+        showList={showList}
+        setShowList={setShowList}
+        setIsModalOpen={setIsModalOpen}
+      />
       <Modal isModalOpen={isModalOpen} onCloseModal={onCloseModal} />
     </Container>
   )
