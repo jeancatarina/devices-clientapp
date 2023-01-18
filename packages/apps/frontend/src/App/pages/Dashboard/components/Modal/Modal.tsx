@@ -57,7 +57,7 @@ export const Modal: React.FC<IModal> = ({ isModalOpen, onCloseModal }) => {
       {({ field, form }) => (
         <FormControl isRequired>
           <FormLabel mb="8px">System Name</FormLabel>
-          <Input {...field} size="sm" />
+          <Input {...field} size="sm" marginBottom={4} />
           <FormErrorMessage>{form.errors.name}</FormErrorMessage>
         </FormControl>
       )}
@@ -69,7 +69,7 @@ export const Modal: React.FC<IModal> = ({ isModalOpen, onCloseModal }) => {
       {({ field, form }) => (
         <FormControl isRequired>
           <FormLabel mb="8px">Type</FormLabel>
-          <Select {...field} placeholder="Select Type">
+          <Select {...field} placeholder="Select Type" marginBottom={4}>
             <option value={'WINDOWS_WORKSTATION'}>Windows Workstation</option>
             <option value={'WINDOWS_SERVER'}>Windows Server</option>
             <option value={'MAC'}>Mac</option>

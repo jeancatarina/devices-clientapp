@@ -11,7 +11,7 @@ module.exports = {
       '~': resolveApp('src')
     },
     plugins: [],
-    configure: (webpackConfig, { env, paths }) => {
+    configure: (webpackConfig) => {
       const { isFound, match } = getLoader(
         webpackConfig,
         loaderByName('babel-loader')
