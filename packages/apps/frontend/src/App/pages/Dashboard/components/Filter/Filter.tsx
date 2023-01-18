@@ -32,14 +32,6 @@ export const Filter: React.FC<IFilter> = ({
   }
 
   const handleOnChangeType = async (value) => {
-    // const filtered = value
-    //  .map((type) =>
-    //    devices.devices.filter((device) => device.type === type.value)
-    //  )
-    //  .pop()
-
-    // dispatch(getDevicesAsync())
-
     const filtered = devices.devices.filter((device) =>
       value.some(
         (item) => item.value.toLowerCase() === device.type.toLowerCase()
@@ -51,10 +43,6 @@ export const Filter: React.FC<IFilter> = ({
     } else {
       dispatch(cleanFilter())
     }
-
-    // if (devices.devices.length === 0) {
-    //   dispatch(getDevicesAsync())
-    // }
   }
 
   const getTypeFilter = () => {
