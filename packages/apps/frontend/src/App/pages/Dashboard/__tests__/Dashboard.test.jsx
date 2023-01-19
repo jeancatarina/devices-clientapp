@@ -17,7 +17,6 @@ describe('Dashboard', () => {
   it('should render', () => {
     render(<Component />)
 
-    screen.logTestingPlaygroundURL()
     expect(screen.getByText(/select device type/i)).toBeInTheDocument()
   })
 })
