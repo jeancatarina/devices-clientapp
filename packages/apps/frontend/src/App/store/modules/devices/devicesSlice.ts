@@ -108,6 +108,8 @@ const devices = createSlice({
         state.status = 'idle'
         state.devices = [...state.devices, action.payload]
         state.filteredDevices = [...state.filteredDevices, action.payload]
+
+        applyFilters(state)
       })
       .addCase(postDeviceAsync.rejected, (state, action: Record<any, any>) => {
         state.status = 'failed'
@@ -127,24 +129,7 @@ const devices = createSlice({
           device.id === action.meta.arg.id ? action.meta.arg : device
         )
 
-        if (state.activeFilters.type) {
-          state.filteredDevices = filterDeviceArrayByStringArray(
-            state.devices,
-            state.activeFilters.type
-          )
-        }
-
-        if (state.activeFilters.sort) {
-          state.filteredDevices = sortArrayByString(
-            state.filteredDevices,
-            state.activeFilters.sort
-          )
-
-          state.devices = sortArrayByString(
-            state.devices,
-            state.activeFilters.sort
-          )
-        }
+        applyFilters(state)
       })
       .addCase(putDeviceAsync.rejected, (state, action: Record<any, any>) => {
         state.status = 'failed'
@@ -187,3 +172,21 @@ export const { sortBy, filterByType, cleanFilter, setCurrentDevice } =
   devices.actions
 
 export const devicesSlice = devices.reducer
+
+const applyFilters = (state) => {
+  if (state.activeFilters.type) {
+    state.filteredDevices = filterDeviceArrayByStringArray(
+      state.devices,
+      state.activeFilters.type
+    )
+  }
+
+  if (state.activeFilters.sort) {
+    state.filteredDevices = sortArrayByString(
+      state.filteredDevices,
+      state.activeFilters.sort
+    )
+
+    state.devices = sortArrayByString(state.devices, state.activeFilters.sort)
+  }
+}

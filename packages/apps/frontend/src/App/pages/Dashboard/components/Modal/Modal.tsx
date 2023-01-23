@@ -111,9 +111,9 @@ export const Modal: React.FC<IModal> = ({ isModalOpen, onCloseModal }) => {
 
         <Formik
           initialValues={{
-            systemName: devices.currentDevice?.system_name,
+            systemName: devices.currentDevice?.system_name || '',
             type: devices.currentDevice?.type,
-            hddCapacity: devices.currentDevice?.hdd_capacity
+            hddCapacity: devices.currentDevice?.hdd_capacity || 0
           }}
           onSubmit={(values, actions) => {
             handleSave(values)
