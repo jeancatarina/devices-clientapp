@@ -1,5 +1,8 @@
 import { Device, Devices } from '@devices/types'
-import { lodash } from '@devices/utils'
+import {
+  filterDeviceArrayByStringArray,
+  sortArrayByString
+} from '@devices/utils'
 
 import { createSlice } from '@reduxjs/toolkit'
 
@@ -15,6 +18,10 @@ interface DeviceState {
   devices: Devices
   filteredDevices: Devices
   currentDevice: Device | null
+  activeFilters: {
+    sort: string | null
+    type: { value: string; label: string }[] | null
+  }
   status: 'idle' | 'loading' | 'failed'
   error: string | null
 }
@@ -22,6 +29,10 @@ interface DeviceState {
 const initialState = {
   devices: [],
   filteredDevices: [],
+  activeFilters: {
+    sort: null,
+    type: null
+  },
   currentDevice: null,
   status: 'idle',
   error: null
@@ -32,18 +43,25 @@ const devices = createSlice({
   initialState,
   reducers: {
     sortBy: (state, action: Record<any, any>) => {
-      state.filteredDevices = lodash.sortBy(
+      state.filteredDevices = sortArrayByString(
         state.filteredDevices,
         action.payload
       )
 
-      state.devices = lodash.sortBy(state.devices, action.payload)
+      state.devices = sortArrayByString(state.devices, action.payload)
+      state.activeFilters = { ...state.activeFilters, sort: action.payload }
     },
     filterByType: (state, action: Record<any, any>) => {
-      state.filteredDevices = action.payload
+      state.filteredDevices = filterDeviceArrayByStringArray(
+        state.devices,
+        action.payload
+      )
+
+      state.activeFilters = { ...state.activeFilters, type: action.payload }
     },
     cleanFilter: (state) => {
       state.filteredDevices = state.devices
+      state.activeFilters = { ...state.activeFilters, type: null, sort: null }
     },
     setCurrentDevice: (state, action) => {
       state.currentDevice = action.payload
@@ -108,6 +126,25 @@ const devices = createSlice({
         state.filteredDevices = state.filteredDevices.map((device) =>
           device.id === action.meta.arg.id ? action.meta.arg : device
         )
+
+        if (state.activeFilters.type) {
+          state.filteredDevices = filterDeviceArrayByStringArray(
+            state.devices,
+            state.activeFilters.type
+          )
+        }
+
+        if (state.activeFilters.sort) {
+          state.filteredDevices = sortArrayByString(
+            state.filteredDevices,
+            state.activeFilters.sort
+          )
+
+          state.devices = sortArrayByString(
+            state.devices,
+            state.activeFilters.sort
+          )
+        }
       })
       .addCase(putDeviceAsync.rejected, (state, action: Record<any, any>) => {
         state.status = 'failed'

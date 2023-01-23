@@ -1,12 +1,11 @@
 import { Button, ButtonGroup, IconList, ReactSelect, Stack } from '@devices/ui'
 
-import { RootState, useAppThunkDispatch } from 'App/store'
+import { useAppThunkDispatch } from 'App/store'
 import {
   cleanFilter,
   filterByType,
   sortBy
 } from 'App/store/modules/devices/devicesSlice'
-import { useSelector } from 'react-redux'
 
 import {
   AddButtonContainerStyled,
@@ -21,7 +20,6 @@ export const Filter: React.FC<IFilter> = ({
   showList
 }) => {
   const dispatch = useAppThunkDispatch()
-  const devices = useSelector((state: RootState) => state.devices)
 
   const getAddButton = () => {
     return (
@@ -32,14 +30,8 @@ export const Filter: React.FC<IFilter> = ({
   }
 
   const handleOnChangeType = async (value) => {
-    const filtered = devices.devices.filter((device) =>
-      value.some(
-        (item) => item.value.toLowerCase() === device.type.toLowerCase()
-      )
-    )
-
     if (value.length > 0) {
-      dispatch(filterByType(filtered))
+      dispatch(filterByType(value))
     } else {
       dispatch(cleanFilter())
     }
@@ -62,7 +54,7 @@ export const Filter: React.FC<IFilter> = ({
   }
 
   const handleOnChangeSortBy = (value) => {
-    dispatch(sortBy([value.value] as any))
+    dispatch(sortBy(value.value))
   }
 
   const getSortByFilter = () => {
